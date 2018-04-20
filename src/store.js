@@ -1,19 +1,21 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import rootReducer from 'state';
+import createSagaMiddleware from 'redux-saga';
 
-const composeEnhancers = composeWithDevTools({
-  // Specify name here, actionsBlacklist, actionsCreators and other options if needed
-});
+import reducers from 'state/reducers';
+import startSagas from 'state/sagas';
+
+const composeEnhancers = composeWithDevTools({});
+const sagaMiddleware = createSagaMiddleware();
 
 const configureStore = (initialState = {}) => {
-  const middleware = [];
-  const enhancer = composeEnhancers(applyMiddleware(...middleware));
+  const rootReducer = combineReducers(reducers);
+  const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
   return createStore(rootReducer, initialState, enhancer);
 };
 
-// pass an optional param to rehydrate state on app start
 const store = configureStore();
+sagaMiddleware.run(startSagas);
 
 // export store singleton instance
 export default store;

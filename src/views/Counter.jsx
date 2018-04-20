@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { counterSelectors, counterActions } from 'state/counter';
 
-const Counter = ({ count, increment, decrement }) => {
+const Counter = ({ count, increment, incrementAsync, decrement }) => {
+  const onAsync = () => incrementAsync();
   const onIncrement = () => increment();
   const onDecrement = () => decrement();
   return (
@@ -12,6 +13,7 @@ const Counter = ({ count, increment, decrement }) => {
 
       <button onClick={onIncrement}>Increment</button>
       <button onClick={onDecrement}>Decrement</button>
+      <button onClick={onAsync}>Increment Async</button>
     </div>
   );
 };
@@ -25,7 +27,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  increment: () => dispatch(counterActions.increment(10)),
+  increment: () => dispatch(counterActions.increment()),
+  incrementAsync: () => dispatch(counterActions.incrementAsync()),
   decrement: () => dispatch(counterActions.decrement())
 });
 
