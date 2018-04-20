@@ -3,7 +3,6 @@ import { put, takeEvery } from 'redux-saga/effects';
 import types from './types';
 
 function* incrementAsync() {
-  console.log('asy');
   yield delay(1000);
   yield put({ type: types.INCREMENT });
 }

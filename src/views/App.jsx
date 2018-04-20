@@ -1,10 +1,10 @@
 import React from 'react';
-import Counter from './Counter';
+import Hero from './Hero';
 
 const App = () => {
   return (
     <div>
-      <Counter />
+      <Hero />
     </div>
   );
 };
